@@ -1,0 +1,13 @@
+---
+- name: 'Assemble the backends configuration file'
+  assemble: src={{ etc_prefix }}/haproxy/backends.d dest={{ etc_prefix }}/haproxy/compiled/03-backends.cfg
+
+- name: 'Assemble the frontends configuration file'
+  assemble: src={{ etc_prefix }}/haproxy/frontends.d dest={{ etc_prefix }}/haproxy/compiled/04-frontends.cfg
+
+- name: 'Assemble the listen sections configuration file'
+  assemble: src={{ etc_prefix }}/haproxy/listen.d dest={{ etc_prefix }}/haproxy/compiled/05-listen.cfg
+
+- name: 'Assemble the final configuration file'
+  assemble: src={{ etc_prefix }}/haproxy/compiled dest={{ config_location }} backup=yes
+  notify: restart haproxy 

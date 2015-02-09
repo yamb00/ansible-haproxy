@@ -1,0 +1,11 @@
+---
+- name: 'Create directory for the listen sections'
+  file: path={{ etc_prefix }}/haproxy/listen.d state=directory
+
+- name: 'Empty the folder if not already empty'
+  command: rm -f {{ etc_prefix }}/haproxy/listen.d/*.cfg
+
+- name: 'Build up the listen sections'
+  template: src=listen.cfg dest={{ etc_prefix }}/haproxy/listen.d/{{ item.name }}.cfg
+  with_items: haproxy_listen
+  when: haproxy_listen is defined 

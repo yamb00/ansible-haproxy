@@ -96,6 +96,15 @@ empty: true
 #haproxy_listen:
 #  - name:
 #    bind:
+#       - "192.168.1.1:80"
+#       - "192.168.1.2:80"
+#    stats:
+#       enabled:
+#       hide_version:
+#       uri:
+#       realm:
+#       auth:
+#       refresh:
 #    disabled:
 #    description:
 #    balance:

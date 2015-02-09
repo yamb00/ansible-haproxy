@@ -1,0 +1,11 @@
+---
+- name: 'Create directory for the backends'
+  file: path={{ etc_prefix }}/haproxy/backends.d state=directory
+
+- name: 'Empty the folder if not already empty'
+  command: rm -f {{ etc_prefix }}/haproxy/backends.d/*.cfg
+
+- name: 'Build up the backends'
+  template: src=backend.cfg dest={{ etc_prefix }}/haproxy/backends.d/{{ item.name }}.cfg
+  with_items: haproxy_backends
+  when: haproxy_backends is defined 

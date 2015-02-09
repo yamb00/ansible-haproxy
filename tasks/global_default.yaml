@@ -1,0 +1,15 @@
+---
+- name: 'Create  the compiled folder'
+  file: path={{ etc_prefix }}/haproxy/compiled state=directory
+
+- name: 'Empty the folder if not already empty'
+  command: rm -f {{ etc_prefix }}/haproxy/compiled/*.cfg
+
+- name: 'Build up the global config'
+  template: src=global.cfg dest={{ etc_prefix }}/haproxy/compiled/01-global.cfg
+  when: haproxy_global is defined
+  tags: 'test'
+
+- name: 'Build up the default config'
+  template: src=defaults.cfg dest={{ etc_prefix }}/haproxy/compiled/02-defaults.cfg
+  when: haproxy_defaults is defined 
